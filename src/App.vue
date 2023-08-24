@@ -1,99 +1,105 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import Login from './components/Login.vue'
+import Register from './components/Register.vue'
+import {ref} from 'vue'
+// import { Login } from '@element-plus/icons-vue'
+const LoginDialogVisible = ref(false)
+const RegisterDialogVisble = ref(false)
+
+function show_login_dialog(visible){
+    LoginDialogVisible.value = visible;
+}
+function show_register_dialog(visible) {
+    RegisterDialogVisble.value = visible
+}
+
 </script>
 
 <template>
   <div class="header">
-    <img alt="logo" class="logo" src="@/assets/logo.svg"/>
-  </div>
-  <!-- <header> -->
-    <!-- <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125px" height="125px" /> -->
+    <el-row>
+      <el-col :span="1"></el-col>
+      <el-col :span="1">
+        <img alt="logo"  class="logo" src="@/assets/logo.svg"/>
+      </el-col>
+      <el-col :span="6"></el-col>
+      <el-col :span="2" class="catlog-space">
+        <p class="catlog">pdf资源</p>
+      </el-col>
+      <el-col :span="2" class="catlog-space">
+        <p class="catlog">待施工</p>
+      </el-col>
+      <el-col :span="2" class="catlog-space">
+        <p class="catlog">待施工</p>
+      </el-col>
+      <el-col :span="2" class="catlog-space">
+        <p class="catlog">待施工</p>
+      </el-col>
+      <el-col :span="5" ></el-col>
+      <el-col :span="1">
+        <el-button @click="LoginDialogVisible = true" class="login-on" circle>登陆</el-button>
+      </el-col>
+      <el-col :span="1">
+        <el-button @click="RegisterDialogVisble = true" class="login-on" circle>注册</el-button>
+      </el-col>
+    </el-row>
     
-    <!-- <div class="wrapper">
-      <HelloWorld msg="You did it!" /> -->
+  </div>
 
-      <!-- <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav> -->
-    <!-- </div> -->
-  <!-- </header> -->
-
-  <!-- <RouterView /> -->
+  <!-- 登陆窗口 -->
+  <el-dialog v-model="LoginDialogVisible" title="登陆" width="30%">
+    <Login @DialogVisibleEvent1  = "show_login_dialog" @DialogVisibleEvent2 = "show_register_dialog"> </Login>
+  </el-dialog>
+  <!-- 注册窗口 -->
+  <el-dialog v-model="RegisterDialogVisble" title="注册" width="30%">
+    <Register @DialogVisibleEvent = "show_register_dialog"></Register>
+  </el-dialog>
+  
 </template>
 
 <style scoped>
+
 .header{
-  display:flex;  
-	justify-content:center; 
-	align-items:center;  
+
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   background-color: #242f42;
-  height: 70px;
+  height: 80px;
 }
 
 
 .logo{
-  
     width: 70px;
     height: 70px;
     /* float: left; */
-    margin: 30px;
+    margin-top: 5px;
 }
-/*
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
+.catlog-space{
+     display:flex;  
+	justify-content:center; 
+	align-items:center;    
+    border-left:1px solid #FFF;
+    height: 35px;
+    margin-top: 20px;
 }
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
+.catlog{
+    color:red;
+    font-size: 18px;
+    
+    /* border-right:1px solid #FFF; */
 }
 
-nav a:first-of-type {
-  border: 0;
+.login-on{
+    width: 55px;
+    height: 55px;
+    /* float: left; */
+    margin-top: 10px;   
+    
 }
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
-} */
+.dialog-footer button:first-child {
+  margin-right: 10px;
+}
 </style>
