@@ -18,9 +18,7 @@ request.interceptors.request.use(
     config => {
 
         console.log(config.withCredentials)
-            // config.headers.common['SessionID'] = window.localStorage.getItem('SessionID') || ''; //携带SessionID
         console.log('请求拦截成功')
-        console.log(config)
         return config;
     },
     error => {
@@ -31,9 +29,7 @@ request.interceptors.request.use(
 
 //配置成功后的拦截器
 request.interceptors.response.use(res => {
-    console.log(res)
     if (res.status == 200) {
-
         return res.data
     } else {
         return Promise.reject(res.data.msg);

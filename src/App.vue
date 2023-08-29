@@ -17,7 +17,35 @@ function show_register_dialog(visible) {
 </script>
 
 <template>
-  <div class="header">
+    <el-menu
+    :default-active="activeIndex"
+    class="header"
+    mode="horizontal"
+    :ellipsis="false"
+    menu-trigger="click"
+  >
+    <img alt="logo"  class="logo" src="@/assets/logo.svg"/>
+    <div class="flex-grow" />
+    <!-- <el-menu-item style="height: 80px;" index="1">Processing Center</el-menu-item> -->
+    <el-sub-menu index="2">
+      <template #title>pdf资源</template>
+      <el-menu-item index="2-1">程序员</el-menu-item>
+      <el-menu-item index="2-2">绘画</el-menu-item>
+      <el-menu-item index="2-3">其它</el-menu-item>
+    </el-sub-menu>
+    <el-sub-menu index="3">
+      <template #title>修建中</template>
+    </el-sub-menu>
+    <el-menu-item index="4" @click="LoginDialogVisible = true">登录
+      <!-- <el-button @click="LoginDialogVisible = true" class="login-on" circle>登陆</el-button>
+      <el-button @click="RegisterDialogVisble = true" class="login-on" circle>注册</el-button> -->
+    </el-menu-item>
+    <el-menu-item index="5" @click="RegisterDialogVisble = true">注册
+    </el-menu-item>
+  </el-menu>
+
+  <!-- <div class="header">
+
     <el-row>
       <el-col :span="1"></el-col>
       <el-col :span="1">
@@ -45,7 +73,7 @@ function show_register_dialog(visible) {
       </el-col>
     </el-row>
     
-  </div>
+  </div> -->
 
   <!-- 登陆窗口 -->
   <el-dialog v-model="LoginDialogVisible" title="登陆" width="30%">
@@ -59,6 +87,9 @@ function show_register_dialog(visible) {
 </template>
 
 <style scoped>
+.flex-grow {
+  flex-grow: 1;
+}
 
 .header{
 
@@ -66,16 +97,12 @@ function show_register_dialog(visible) {
   top: 0;
   left: 0;
   right: 0;
-  background-color: #242f42;
   height: 80px;
 }
-
-
 .logo{
     width: 70px;
     height: 70px;
-    /* float: left; */
-    margin-top: 5px;
+    margin-left: 20px;
 }
 .catlog-space{
      display:flex;  
@@ -95,7 +122,6 @@ function show_register_dialog(visible) {
 .login-on{
     width: 55px;
     height: 55px;
-    /* float: left; */
     margin-top: 10px;   
     
 }

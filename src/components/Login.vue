@@ -1,18 +1,15 @@
 <template>
-    <el-form :model="LoginForm" label-width="80px">
-      <el-form-item label="账号">
+    <el-form :model="LoginForm" label-width="80px" :rules="rules">
+      <el-form-item label="账号" prop="userid">
         <el-input v-model="LoginForm.userid" auto-complete="false" placeholder=""></el-input>
       </el-form-item>
-      <el-form-item label="密码">
-        <el-input v-model="LoginForm.password" type="password" auto-complete="false" placeholder=""></el-input>
+      <el-form-item label="密码" prop="pass">
+        <el-input v-model="LoginForm.pass" type="password" auto-complete="false" placeholder=""></el-input>
       </el-form-item>
-      <el-form-item label="验证码">
+      <el-form-item label="验证码" prop="captchas">
         <el-input v-model="LoginForm.captchas" auto-complete="false" placeholder=""></el-input>
-        <div style="width: 50px;">
-                <!-- <el-image :src="contBack" @click="fleshCaptcha" ref="captcha" alt /> -->
-        </div>
-        <div v-html="contBack" @click="graphical"></div>
       </el-form-item>
+      <div v-html="contBack" @click="graphical"></div>
 
     </el-form>
     <span class="footer" >
@@ -25,17 +22,81 @@
     // import {LoginDialogVisible} from '../App.vue'
     import {onMounted, reactive, ref} from 'vue'
     import api from '../utils/api'
-    const captcha = ref();
+    import {nameReg, tagNameReg} from '../utils/regexp'
     const contBack = ref('')
-    const randomNum = ref('')
     const LoginForm = reactive({
         userid: '',
-        password: '',
+        pass: '',
         captchas: ''
     })
+
+    const validateName = (rule, value, callback) => {
+        let reg = nameReg
+        if(value && !reg.test(value)) {
+            callback(new Error('用户名格式不正确'))
+        }else if(value.length < 5 || value.length > 32){
+            callback(new Error('用户名长度为5~32'))
+        }else {
+            callback()
+        }
+    }
+
+    // const validatePass = (rule, value, callback) => {
+    //     let reg = reqPassword
+    //     if(value && !reg.test(value)) {
+    //         callback(new Error('密码格式不正确'))
+    //     }else if(value.length < 5 || value.length > 32){
+    //         callback(new Error('用户名长度为5~32'))
+    //     }else {
+    //         callback()
+    //     }
+    // }
+
+    const validateCap = (rule, value, callback) => {
+        let reg = tagNameReg
+        if(value && !reg.test(value)) {
+            callback(new Error('验证码格式不正确'))
+        }else if(value.length != 4){
+            callback(new Error('验证码长度为4'))
+        }else {
+            callback()
+        }
+    }
+    const rules = reactive({
+        userid: [
+            {
+                required: true,
+                message: '请输出用户名',
+                trigger: 'blur',
+            },
+            {
+                validator: validateName, trigger: 'blur'
+            }
+        ],
+        pass: [
+            {
+                required: true,
+                message: '请输出密码',
+                trigger: 'blur',         
+            },
+            // {
+            //     validator: validatePass, trigger: 'blur'
+            // }
+        ],
+        captchas: [
+            {
+                required: true,
+                message: '请输入验证码',
+                trigger: 'blur',
+            },
+            {
+                validator: validateCap, trigger: 'blur'
+            }
+        ]
+    })
+
      const emit = defineEmits(['']);
     
-
     function close(){
         emit('DialogVisibleEvent1', false)
     }
@@ -54,10 +115,23 @@
 
     //登陆
     function login(){
-        api.login({captcha: LoginForm.captchas}).then((res)=>{
-            console.log(res.data)
+        api.trycaptcha({captcha: LoginForm.captchas}).then((res)=>{
+
+            if(res == 'SUCCESS') {
+                console.log('验证码正确')
+                api.login({userid: LoginForm.userid, pwd: LoginForm.pass}).then((res)=>{
+                    if(res == 0)
+                        console.log('登陆成功')
+                    else{
+                        console.log('用户名或密码不正确')
+                    }
+                })     
+            }else{
+                console.log('验证码不正确')
+            }
         })
     }
+
 
     onMounted(()=>{
         graphical();
