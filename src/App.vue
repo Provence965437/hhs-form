@@ -39,6 +39,7 @@ onMounted(()=>{
 </script>
 
 <template>
+  <div>
     <el-menu
     :default-active="activeIndex"
     class="header"
@@ -104,8 +105,8 @@ onMounted(()=>{
   </div> -->
 
   <!-- 登陆窗口 -->
-  <div> <router-view></router-view></div>
- 
+  <div class="main"> <router-view></router-view></div>
+</div>
   <el-dialog v-model="LoginDialogVisible" title="登陆" width="30%">
     <Login @DialogVisibleEvent1  = "show_login_dialog" 
             @DialogVisibleEvent2 = "show_register_dialog"
@@ -126,7 +127,6 @@ onMounted(()=>{
 }
 
 .header{
-
   position: fixed;
   top: 0;
   left: 0;
