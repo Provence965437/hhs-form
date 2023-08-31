@@ -3,13 +3,14 @@ import { RouterLink, RouterView } from 'vue-router'
 import Login from './components/Login.vue'
 import Register from './components/Register.vue'
 import {onMounted, ref} from 'vue'
-import { useId } from 'element-plus';
-// import { Login } from '@element-plus/icons-vue'
+import router from './router'
+
 const LoginDialogVisible = ref(false)
 const RegisterDialogVisble = ref(false)
 const loginVisible = ref(true)
 const registerVisible = ref(true)
 const actorVisible = ref(false)
+
 function show_login_dialog(visible){
     LoginDialogVisible.value = visible;
 }
@@ -26,6 +27,7 @@ function show_login_button(visible) {
 function loginOut() {
   show_login_button(true)
   localStorage.setItem('userInfo', JSON.stringify({isLogin: false}))
+  router.push('/')
 
 }
 onMounted(()=>{
@@ -47,7 +49,7 @@ onMounted(()=>{
     :ellipsis="false"
     menu-trigger="click"
   >
-    <img alt="logo"  class="logo" src="@/assets/logo.svg"/>
+    <img @click="router.push('/')" alt="logo"  class="logo" src="@/assets/logo.svg"/>
     <div class="flex-grow" />
     <!-- <el-menu-item style="height: 80px;" index="1">Processing Center</el-menu-item> -->
     <el-sub-menu index="2">
@@ -69,7 +71,7 @@ onMounted(()=>{
       <template #title>
         <img alt="logo" circle class="actor" src="@/assets/logo.svg"/>
       </template>
-      <el-menu-item index="6-1">个人中心</el-menu-item>
+      <el-menu-item index="6-1" @click="router.push('/myself/baseinfo')">个人中心</el-menu-item>
       <el-menu-item index="6-2" @click="loginOut">退出登陆</el-menu-item>
     </el-sub-menu>
   </el-menu>
@@ -105,7 +107,7 @@ onMounted(()=>{
   </div> -->
 
   <!-- 登陆窗口 -->
-  <div class="main"> <router-view></router-view></div>
+   <div> <router-view ></router-view></div> 
 </div>
   <el-dialog v-model="LoginDialogVisible" title="登陆" width="30%">
     <Login @DialogVisibleEvent1  = "show_login_dialog" 
@@ -132,6 +134,8 @@ onMounted(()=>{
   left: 0;
   right: 0;
   height: 80px;
+  z-index: 1;
+  opacity:0.7
 }
 .logo{
     width: 70px;

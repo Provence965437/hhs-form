@@ -29,6 +29,13 @@ const api = {
             method: 'get',
             params: data
         })
+    },
+    getBaseinfo(data) {
+        return request({
+            url: '/user/userinfo',
+            method: 'get',
+            params: data
+        })
     }
 }
 

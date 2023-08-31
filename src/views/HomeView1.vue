@@ -6,5 +6,5 @@ import TheWelcome from '../components/TheWelcome.vue'
   <!-- <main>
     <TheWelcome />
   </main> -->
-  123
+  456
 </template>
