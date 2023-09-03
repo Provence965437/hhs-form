@@ -26,7 +26,6 @@ import api from '../../utils/api'
 const usrname = ref('123')
 
 onMounted(()=>{
-    console.log('????')
     api.getBaseinfo({userid:'userid'}).then((res)=>{
         ;
     })

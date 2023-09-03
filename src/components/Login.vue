@@ -55,7 +55,7 @@
             callback(new Error('验证码长度为4'))
         }else {
             api.trycaptcha({captcha: LoginForm.captchas}).then((res)=>{
-                if(res == 'SUCCESS') {
+                if(res.code == 1002) {
                     console.log('验证码正确')
                     callback()
                 }else{
@@ -125,7 +125,8 @@
             
             if(valid){
                 api.login({userid: LoginForm.userid, pwd: LoginForm.pass}).then((res)=>{
-                    if(res == 0){
+                    console.log(res)
+                    if(res.code == 1000){
                         let userInfo = {
                             isLogin: true,
                         }
