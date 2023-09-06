@@ -14,7 +14,6 @@
 <script setup>
   import router from '../router'
   // const router = useRouter()
-
 </script>
 <style>
 .navigation{

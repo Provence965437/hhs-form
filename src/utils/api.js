@@ -36,6 +36,13 @@ const api = {
             method: 'get',
             params: data
         })
+    },
+    expiretest(data) {
+        return request({
+            url: '/user/expire',
+            method: 'get',
+            params: data
+        })
     }
 }
 

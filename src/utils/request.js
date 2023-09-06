@@ -1,5 +1,6 @@
 import axios from 'axios';
-
+import router from '../router'
+import {inject} from 'vue'
 // 创建 request axios 实例
 const request = axios.create({
     method: 'post',
@@ -16,7 +17,6 @@ const request = axios.create({
 // request拦截器,在请求之前做一些处理
 request.interceptors.request.use(
     config => {
-
         console.log(config.withCredentials)
         console.log('请求拦截成功')
         return config;
@@ -30,6 +30,7 @@ request.interceptors.request.use(
 //配置成功后的拦截器
 request.interceptors.response.use(res => {
     if (res.status == 200) {
+         CheckExpire(res.data.code)
         return res.data
     } else {
         return Promise.reject(res.data.msg);
@@ -46,7 +47,10 @@ request.interceptors.response.use(res => {
     return Promise.reject(error)
 })
 
-//request.defaults.withCredentials = true;
+var CheckExpire = null
 
+export  function setExpireCall(ExpireCall){
+	CheckExpire = ExpireCall
+}
 
 export default request

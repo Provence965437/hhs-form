@@ -2,14 +2,17 @@
 import { RouterLink, RouterView } from 'vue-router'
 import Login from './components/Login.vue'
 import Register from './components/Register.vue'
-import {onMounted, ref} from 'vue'
+import {onMounted, ref, provide} from 'vue'
 import router from './router'
-
+import { setExpireCall} from './utils/request'
 const LoginDialogVisible = ref(false)
 const RegisterDialogVisble = ref(false)
 const loginVisible = ref(true)
 const registerVisible = ref(true)
 const actorVisible = ref(false)
+
+// provide('loginVisible', loginVisible)
+// provide('registerVisible', registerVisible)
 
 function show_login_dialog(visible){
     LoginDialogVisible.value = visible;
@@ -38,6 +41,19 @@ onMounted(()=>{
     }
   }
 })
+
+function check_expire(code){
+    if(code == 1007){
+	console.log('logout')
+      loginOut()
+        // console.log(document.getElementsByClassName("login_button"));
+    }
+}
+
+setExpireCall(check_expire)
+// test = 0
+// provide('CheckExpire', CheckExpire)
+
 </script>
 
 <template>
@@ -61,7 +77,7 @@ onMounted(()=>{
     <el-sub-menu index="3">
       <template #title>修建中</template>
     </el-sub-menu>
-    <el-menu-item index="4" @click="LoginDialogVisible = true" v-show="loginVisible">登录
+    <el-menu-item index="4" @click="LoginDialogVisible = true" v-show="loginVisible" class="login_button">登录
       <!-- <el-button @click="LoginDialogVisible = true" class="login-on" circle>登陆</el-button>
       <el-button @click="RegisterDialogVisble = true" class="login-on" circle>注册</el-button> -->
     </el-menu-item>
