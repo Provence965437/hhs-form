@@ -5,6 +5,8 @@ defineProps({
     required: true
   }
 })
+
+const emit = defineEmits(['test']);
 </script>
 
 <template>

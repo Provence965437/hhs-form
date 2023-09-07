@@ -1,18 +1,18 @@
 <template>
-    <el-form :model="LoginForm" label-width="80px" :rules="rules" ref="formReg">
+    <el-form :model="LoginForm" label-width="80px" :rules="rules" ref="formReg" @keyup.enter="login">
       <el-form-item label="账号" prop="userid">
         <el-input v-model="LoginForm.userid" auto-complete="false" placeholder=""></el-input>
       </el-form-item>
       <el-form-item label="密码" prop="pass">
         <el-input v-model="LoginForm.pass" type="password" auto-complete="false" placeholder=""></el-input>
       </el-form-item>
-      <el-form-item label="验证码" prop="captchas">
+      <el-form-item label="验证码" prop="captchas" >
         <el-input v-model="LoginForm.captchas" auto-complete="false" placeholder=""></el-input>
       </el-form-item>
-      <div v-html="contBack" @click="graphical"></div>
+      <div v-html="contBack" @click="graphical" class="captcha"></div>
     </el-form>
     <span class="footer" >
-        <el-button type="primary" @click="login">Login</el-button>
+        <el-button type="primary" @click="login" >Login</el-button>
         <el-button @click="close">Cancel</el-button>
     </span>
     <p style="text-align: right;margin-top: 20px;" @click="openRegister">还没有账号? 点击注册</p>
@@ -21,7 +21,7 @@
 
 /***********  impport method、component*************************/
 
-    import {onMounted, reactive, ref} from 'vue'
+    import {onActivated, onMounted, reactive, ref, inject, watch} from 'vue'
     import api from '../utils/api'
     import {nameReg, tagNameReg} from '../utils/regexp'
 
@@ -35,6 +35,7 @@
     const formReg = ref(null)
     const emit = defineEmits(['']);
     var userInfo = {}
+    var visible = inject('LoginDialogVisible')
 /***********************about validate*********************************/
     const validateName = (rule, value, callback) => {
         let reg = nameReg
@@ -141,9 +142,15 @@
     
         })
     }
+    
+//监听该窗口状态
+    watch(visible,(newValue,oldValue)=>{
+        if(newValue == true)
+            graphical()
+    })
 
     onMounted(()=>{
-        graphical();
+        graphical()
     })
 </script>
 
@@ -152,6 +159,13 @@
     display: flex;
     justify-content:flex-end;
     
+}
+.captcha{
+    width: 70px;
+    height: 40px;
+}
+p{
+  display:inline-block;        
 }
 </style>
 

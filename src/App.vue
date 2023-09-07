@@ -11,6 +11,7 @@ const loginVisible = ref(true)
 const registerVisible = ref(true)
 const actorVisible = ref(false)
 
+provide('LoginDialogVisible', LoginDialogVisible)
 // provide('loginVisible', loginVisible)
 // provide('registerVisible', registerVisible)
 

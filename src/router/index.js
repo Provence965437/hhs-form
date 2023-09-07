@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, useRouter} from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-
+import { inject } from "vue";
+const ceshi = inject("reload");
 
 
 const router = createRouter({
@@ -63,4 +64,6 @@ router.beforeEach((to, from, next) => {
     next()
   }
 })
+
+// onBeforeRouteEnter((to, from, next))
 export default router
