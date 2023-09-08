@@ -35,6 +35,11 @@ const router = createRouter({
       ]
     },
     {
+      path: '/pdf',
+      name: 'pdf',
+      component: () => import('../views/PdfMain.vue'),
+    },
+    {
       path: '/404',
       name: '404',
        component: ()=>import('../views/404.vue')
@@ -50,7 +55,6 @@ const router = createRouter({
 const BlackList = ['myself','mybaseinfo','mystar', 'myupdown']
 
 router.beforeEach((to, from, next) => {
-  console.log('123',to.name, from.name)
   if(BlackList.includes(to.name)){
     var userInfo = JSON.parse(localStorage.getItem('userInfo'));
     console.log(userInfo)

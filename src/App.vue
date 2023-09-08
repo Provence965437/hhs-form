@@ -69,12 +69,14 @@ setExpireCall(check_expire)
     <img @click="router.push('/')" alt="logo"  class="logo" src="@/assets/logo.svg"/>
     <div class="flex-grow" />
     <!-- <el-menu-item style="height: 80px;" index="1">Processing Center</el-menu-item> -->
-    <el-sub-menu index="2">
+    <el-menu-item index="2" @click="router.push('/pdf')">pdf
+    </el-menu-item>
+    <!-- <el-sub-menu index="2">
       <template #title>pdf资源</template>
       <el-menu-item index="2-1">程序员</el-menu-item>
       <el-menu-item index="2-2">绘画</el-menu-item>
       <el-menu-item index="2-3">其它</el-menu-item>
-    </el-sub-menu>
+    </el-sub-menu> -->
     <el-sub-menu index="3">
       <template #title>修建中</template>
     </el-sub-menu>
@@ -93,38 +95,10 @@ setExpireCall(check_expire)
     </el-sub-menu>
   </el-menu>
 
-  <!-- <div class="header">
-    <el-row>
-      <el-col :span="1"></el-col>
-      <el-col :span="1">
-        <img alt="logo"  class="logo" src="@/assets/logo.svg"/>
-      </el-col>
-      <el-col :span="6"></el-col>
-      <el-col :span="2" class="catlog-space">
-        <p class="catlog">pdf资源</p>
-      </el-col>
-      <el-col :span="2" class="catlog-space">
-        <p class="catlog">待施工</p>
-      </el-col>
-      <el-col :span="2" class="catlog-space">
-        <p class="catlog">待施工</p>
-      </el-col>
-      <el-col :span="2" class="catlog-space">
-        <p class="catlog">待施工</p>
-      </el-col>
-      <el-col :span="5" ></el-col>
-      <el-col :span="1">
-        <el-button @click="LoginDialogVisible = true" class="login-on" circle>登陆</el-button>
-      </el-col>
-      <el-col :span="1">
-        <el-button @click="RegisterDialogVisble = true" class="login-on" circle>注册</el-button>
-      </el-col>
-    </el-row>
-    
-  </div> -->
 
   <!-- 登陆窗口 -->
-   <div> <router-view ></router-view></div> 
+  <router-view ></router-view>
+   <!-- <div class="mid"> <router-view ></router-view></div>  -->
 </div>
   <el-dialog v-model="LoginDialogVisible" title="登陆" width="30%">
     <Login @DialogVisibleEvent1  = "show_login_dialog" 
@@ -183,4 +157,8 @@ setExpireCall(check_expire)
   display: none;
   }
 }
+.mid{
+  position: absolute;
+}
+
 </style>

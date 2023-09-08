@@ -1,13 +1,14 @@
 <template>
+
   <el-menu
    class="navigation"
    menu-trigger="click">
       <el-menu-item index="1" @click="router.push('/myself/baseinfo')">我的信息</el-menu-item>
       <el-menu-item index="2" @click="router.push('/myself/star')">我的收藏</el-menu-item>
       <el-menu-item index="3" @click="router.push('/myself/updown')">我的投稿</el-menu-item>
-      
+  
   </el-menu>
-  <div style="main">
+  <div class="main">123
     <router-view></router-view>
   </div>
 </template>
@@ -23,7 +24,13 @@
 }
 .main{
   position: absolute;
-  top: 200px;
-  /* left: 200px; */
+  top:200px;
+
+}
+.follow{
+  color: #000;
+}
+div {
+    border: 1px solid #000;
 }
 </style>

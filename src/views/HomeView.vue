@@ -11,8 +11,5 @@ onMounted(()=>{
 </script>
 
 <template>
-  <!-- <main>
-    <TheWelcome />
-  </main> -->
-  123
+123
 </template>
